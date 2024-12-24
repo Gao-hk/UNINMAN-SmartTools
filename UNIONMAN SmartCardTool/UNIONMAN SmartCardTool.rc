@@ -1,0 +1,544 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+#include "verrsrc.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_NEUTRAL
+#pragma code_page(936)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_SMARTTOOL_DIALOG DIALOGEX 0, 0, 523, 359
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "UNIONMAN Smart Card Tool"
+FONT 10, "宋体", 400, 0, 0x0
+BEGIN
+    PUSHBUTTON      "复位",btnReset,467,20,50,17,NOT WS_VISIBLE | WS_DISABLED
+    LTEXT           "",lbActiveReader,8,348,508,8
+    COMBOBOX        IDC_comboReaderList,4,8,458,76,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "复位",btnConnect,467,6,50,17
+    CONTROL         "",IDC_TAB1,"SysTabControl32",0x0,4,25,513,319
+END
+
+IDD_ABOUT_DIALOG DIALOGEX 0, 0, 150, 65
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 UNIONMAN Smart Card Tool"
+FONT 11, "Times New Roman", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,56,44,35,14
+    LTEXT           "Smart Card Tool V1.0.0.2",IDC_STATIC,43,23,97,10
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,13,20,20,SS_REALSIZEIMAGE
+END
+
+IDD_PAGE1_APDU DIALOGEX 0, 0, 523, 331
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 10, "宋体", 400, 0, 0x0
+BEGIN
+    LISTBOX         lstHis,7,7,509,97,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    LTEXT           "APDU",IDC_STATIC,9,113,19,8
+    EDITTEXT        edtAPDU,31,110,427,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "执行",btnExe,465,107,51,19
+    EDITTEXT        edtexeResult,7,131,509,189,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | WS_VSCROLL | WS_HSCROLL
+END
+
+IDD_PAGE_Native_PLUS DIALOGEX 0, 0, 512, 311
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 10, "宋体", 400, 0, 0x0
+BEGIN
+    PUSHBUTTON      "读取文件列表",btnGetNativePlusFileList,373,152,62,19
+    CONTROL         "",IDC_FILE_TREE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_CHECKBOXES | TVS_INFOTIP | WS_BORDER | WS_HSCROLL | WS_TABSTOP,7,7,251,303
+    PUSHBUTTON      "Delete",IDC_BUTTON1,384,99,50,14,NOT WS_VISIBLE
+END
+
+IDD_PAGE2_CardInfo DIALOGEX 0, 0, 524, 327
+STYLE DS_SETFONT | WS_CHILD | WS_SYSMENU
+FONT 10, "宋体", 400, 0, 0x0
+BEGIN
+    GROUPBOX        "CardType",IDC_STATIC_CardType,7,7,102,51
+    GROUPBOX        "MAC",IDC_STATIC_MAC,112,7,86,51
+    GROUPBOX        "COS VER",IDC_STATIC_CosVer,293,7,108,30
+    GROUPBOX        "Card SN",IDC_STATIC_SN,201,7,89,30
+    GROUPBOX        "SHA1 List",IDC_STATIC_SHA1List,7,63,510,88
+    CONTROL         "MT1",radioMT1,"Button",BS_AUTORADIOBUTTON,21,21,30,10
+    CONTROL         "MT211",radioMT211,"Button",BS_AUTORADIOBUTTON,21,41,37,10
+    CONTROL         "MT222A",radioMT222A,"Button",BS_AUTORADIOBUTTON,68,21,37,10
+    CONTROL         "MT222",radioMT222C,"Button",BS_AUTORADIOBUTTON,68,41,37,10
+    EDITTEXT        edtBLE,140,20,54,12,ES_UPPERCASE | ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        edtCosVer,308,20,89,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_RIGHT
+    EDITTEXT        edtSPP,140,43,54,12,ES_UPPERCASE | ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        edtSn,217,20,70,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
+    EDITTEXT        edtSHA1_1,20,75,167,12,ES_UPPERCASE | ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        edtSHA1_2,20,89,167,12,ES_UPPERCASE | ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        edtSHA1_3,20,103,167,12,ES_UPPERCASE | ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        edtSHA1_4,20,117,167,12,ES_UPPERCASE | ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        edtSHA1_5,20,132,167,12,ES_UPPERCASE | ES_AUTOHSCROLL,WS_EX_RIGHT
+    PUSHBUTTON      "Get CardInfo",btnGet,97,162,57,22
+    PUSHBUTTON      "Set CardInfo",btnSet,245,162,57,22
+    COMBOBOX        comboSha1List1,210,74,190,135,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        comboSha1List2,210,89,190,120,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        comboSha1List3,210,104,190,105,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        comboSha1List4,210,118,190,91,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        comboSha1List5,210,132,190,77,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        edtStatus,7,308,388,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    LTEXT           "ExAuth Key",IDC_STATIC,209,44,41,8
+    EDITTEXT        edtAuthKey,258,43,138,12,ES_UPPERCASE | ES_AUTOHSCROLL,WS_EX_RIGHT
+    GROUPBOX        "",IDC_STATIC,201,35,200,24
+    LTEXT           "BLE",IDC_STATIC,125,22,13,8
+    LTEXT           "SPP",IDC_STATIC,125,44,13,8
+END
+
+IDD_PAGE3_Download DIALOGEX 0, 0, 516, 330
+STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_SYSMENU
+FONT 10, "宋体", 400, 0, 0x0
+BEGIN
+    GROUPBOX        "",IDC_STATIC_CardType,7,27,122,25
+    GROUPBOX        "",IDC_STATIC_MAC,132,27,92,25
+    GROUPBOX        "",IDC_STATIC_SN,227,27,83,26
+    GROUPBOX        "",IDC_STATIC_SHA1List,7,55,502,85
+    CONTROL         "MT1",page3radioMT1,"Button",BS_AUTORADIOBUTTON,13,37,30,10
+    CONTROL         "MT211",page3radioMT211,"Button",BS_AUTORADIOBUTTON,12,37,37,10
+    CONTROL         "MT222A",page3radioMT222A,"Button",BS_AUTORADIOBUTTON,51,37,37,10
+    CONTROL         "MT222",page3radioMT222C,"Button",BS_AUTORADIOBUTTON,92,37,35,10
+    EDITTEXT        page3edtBLE,194,36,25,12,ES_UPPERCASE | ES_AUTOHSCROLL
+    EDITTEXT        page3edtSn,236,36,70,12,ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
+    EDITTEXT        page3edtSHA1_1,20,67,167,12,ES_UPPERCASE | ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        page3edtSHA1_2,20,81,167,12,ES_UPPERCASE | ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        page3edtSHA1_3,20,95,167,12,ES_UPPERCASE | ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        page3edtSHA1_4,20,109,167,12,ES_UPPERCASE | ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        page3edtSHA1_5,20,124,167,12,ES_UPPERCASE | ES_AUTOHSCROLL,WS_EX_RIGHT
+    EDITTEXT        page3edtCosFile,8,9,332,12,ES_AUTOHSCROLL
+    COMBOBOX        page3comboSha1List1,210,66,190,116,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        page3comboSha1List2,210,81,190,101,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        page3comboSha1List3,210,96,190,86,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        page3comboSha1List4,210,110,190,72,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        page3comboSha1List5,210,124,190,58,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Open CosFile",page3btnOpenFile,345,7,56,16
+    CONTROL         "",page3process1,"msctls_progress32",PBS_SMOOTH | WS_BORDER,7,309,502,14
+    EDITTEXT        page3edtStatus,10,175,391,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_RIGHT
+    LTEXT           "BLE: D05F6047",IDC_STATIC_BLE_P3,141,38,52,8
+    PUSHBUTTON      "清除卡片",page3btnBoot,169,146,70,26,BS_MULTILINE
+    CONTROL         "Security House",checkSHouse,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,324,30,70,10
+    CONTROL         "WeLink",checkWeLink,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,324,43,40,10
+    CONTROL         "SHA1 List",checkSha1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,11,53,52,10
+    CONTROL         "Card Type",checkCardType,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,26,52,10
+    CONTROL         "MAC",checkMAC,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,137,26,28,10
+    CONTROL         "SN",checkSN,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,232,26,24,10
+END
+
+IDD_PAGE4_CapLoadandInstall DIALOGEX 0, 0, 511, 318
+STYLE DS_SETFONT | DS_3DLOOK | WS_CHILD | WS_SYSMENU
+FONT 10, "宋体", 400, 0, 0x0
+BEGIN
+    EDITTEXT        page4edtCapFile,7,9,332,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Open Cap File",page4btnOpenFile,342,7,61,16
+    PUSHBUTTON      "Load and Install",page4btnLoadandInstall,298,147,75,22,BS_MULTILINE
+    CONTROL         "",page4process1,"msctls_progress32",WS_BORDER,7,176,497,14
+    EDITTEXT        page4edtStatus,10,192,391,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER,WS_EX_RIGHT
+    EDITTEXT        page4edtISD,370,28,134,12,ES_AUTOHSCROLL
+    EDITTEXT        page4edtS_ENC,370,51,134,12,ES_AUTOHSCROLL
+    EDITTEXT        page4edtS_MAC,370,71,134,12,ES_AUTOHSCROLL
+    EDITTEXT        page4edtDEK,370,92,134,12,ES_AUTOHSCROLL
+    LTEXT           "ISD",IDC_STATIC_ISD,246,28,13,8
+    LTEXT           "S_ENC",IDC_STATIC_SENC,246,51,21,8
+    LTEXT           "S_MAC",IDC_STATIC_SMAC,246,71,21,8
+    LTEXT           "DEK",IDC_STATIC_DEK,246,92,13,8
+    COMBOBOX        page4comboxAid,371,124,133,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "AID",IDC_STATIC_AID,247,126,13,8
+    LISTBOX         page4list,7,27,235,114,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,WS_EX_TRANSPARENT
+    PUSHBUTTON      "Get Card Status",page4btnGetCardStatus,87,147,74,22
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_SMARTTOOL_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 517
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 356
+    END
+
+    IDD_ABOUT_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 143
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 58
+    END
+
+    IDD_PAGE1_APDU, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 516
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 324
+    END
+
+    IDD_PAGE_Native_PLUS, DIALOG
+    BEGIN
+        RIGHTMARGIN, 510
+    END
+
+    IDD_PAGE2_CardInfo, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 517
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 320
+    END
+
+    IDD_PAGE3_Download, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 509
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 323
+    END
+
+    IDD_PAGE4_CapLoadandInstall, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 504
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 311
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_SMARTTOOL_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_ABOUT_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 100, 100
+END
+
+IDD_PAGE1_APDU AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_PAGE2_CardInfo AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_PAGE3_Download AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_PAGE4_CapLoadandInstall AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_PAGE_Native_PLUS AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // 中文(简体) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_ABOUTBOX AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "#include ""verrsrc.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#include ""res\\PCSCReaderDemo.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""l.CHS\\afxres.rc""      // 标准组件\r\n"
+    "#if !defined(_AFXDLL)\r\n"
+    "#include ""l.CHS\\afxribbon.rc""   // MFC 功能区和控制条资源\r\n"
+    "#endif\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\UNIONMAN SmartCardTool.ico"
+
+IDI_ICON_KEY            ICON                    "res\\Key1.ico"
+
+IDI_ICON_TXT            ICON                    "res\\txt.ico"
+
+IDI_ICON_RECORD1        ICON                    "res\\产品文件.ico"
+
+IDI_ICON_RECORD2        ICON                    "res\\档案文件.ico"
+
+IDI_ICON_BIN2           ICON                    "res\\工作表图标.ico"
+
+IDI_ICON_KEYPAIR        ICON                    "res\\密钥对.ico"
+
+IDI_ICON_BIN            ICON                    "res\\文档编辑.ico"
+
+IDI_ICON_KEY2           ICON                    "res\\应用程序密钥.ico"
+
+IDI_ICON_FOLDER         ICON                    "res\\红色文件夹.ico"
+
+IDI_ICON_FOLDER2        ICON                    "res\\接受目录.ico"
+
+IDI_ICON_IWORK          ICON                    "res\\我工作.ico"
+
+IDI_ICON_CERT           ICON                    "res\\证书.ico"
+
+IDI_ICON_KEYPAIR2       ICON                    "res\\密钥对2.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,4
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "FileDescription", "Smart Card Tool"
+            VALUE "FileVersion", "1.0.0.4"
+            VALUE "InternalName", "UNIONMAN SmartCardTool.exe"
+            VALUE "LegalCopyright", "高红奎"
+            VALUE "OriginalFilename", "UNIONMAN SmartCardTool.exe"
+            VALUE "ProductName", "UNIONMAN Smart Card Tool"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU_MF MENU
+BEGIN
+    POPUP "IDR_MENU_MF"
+    BEGIN
+        POPUP "新建"
+        BEGIN
+            MENUITEM "KEY文件",                       ID_CreateKey
+            MENUITEM "Binary",                      ID_CreateBinary
+            MENUITEM "Record",                      ID_CreateRecord
+            MENUITEM "ADF",                         ID_CreateADF
+            MENUITEM "RSA PubKey File",             ID_CreateRsaPub
+            MENUITEM "RSA PriKey File",             ID_CreateRsaPri
+            MENUITEM "SM2 PubKey File",             ID_CreateSM2Pub
+            MENUITEM "SM2 PriKey File",             ID_CreateSM2Pri
+            MENUITEM "Cert File",                   ID_CreateCert
+        END
+        MENUITEM "打开",                          ID_IDR_OPENMF
+        MENUITEM "外部认证",                        ID_IDR_ADF_ExAuth
+        MENUITEM "PIN验证",                       ID_IDR_ADF_PIN_Verify
+        MENUITEM "删除",                          ID_IDR_DELMF
+    END
+END
+
+IDR_MENU_ADF MENU
+BEGIN
+    POPUP "IDR_MENU_ADF"
+    BEGIN
+        POPUP "新建"
+        BEGIN
+            MENUITEM "KEY文件",                       ID_CreateKeyInADF
+            MENUITEM "Binary",                      ID_CreateBinaryInADF
+            MENUITEM "Record",                      ID_CreateRecordInADF
+            MENUITEM "RSA PubKey File",             ID_CreateRsaPubInADF
+            MENUITEM "RSA PriKey File",             ID_CreateRsaPriInADF
+            MENUITEM "SM2 PubKey File",             ID_CreateSM2PubInADF
+            MENUITEM "SM2 PriKey File",             ID_CreateSM2PriInADF
+            MENUITEM "Cert File",                   ID_CreateCertInADF
+        END
+        MENUITEM "打开",                          ID_OpenADF
+        MENUITEM "外部认证",                        ID_MF_ExtAuth
+        MENUITEM "PIN验证",                       ID_IDR_MF_PIN_Verify
+        MENUITEM "删除",                          ID_DelADF
+    END
+END
+
+IDR_MENU_FILE MENU
+BEGIN
+    POPUP "IDR_MENU_FILE"
+    BEGIN
+        MENUITEM "打开",                          ID_IDR_OPEN_FILE
+        MENUITEM "Read",                        ID_IDR_READ_FILE
+        MENUITEM "Write",                       ID_IDR_WRITE_FILE
+        MENUITEM "删除",                          ID_IDR_DELETE_FILE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP_NEW_FOLDER   BITMAP                  "res\\新建文件夹.bmp"
+
+IDB_BITMAP_OPEN_FILE    BITMAP                  "res\\打开文件.bmp"
+
+IDB_BITMAP_READ         BITMAP                  "res\\读取.bmp"
+
+IDB_BITMAP_DEL          BITMAP                  "res\\删除.bmp"
+
+IDB_BITMAP_WRITE        BITMAP                  "res\\文档编辑.bmp"
+
+IDB_BITMAP_WRITE2       BITMAP                  "res\\文档写入.bmp"
+
+IDB_BITMAP_NEW_FILE     BITMAP                  "res\\文档新建.bmp"
+
+IDB_BITMAP_NEW_RECORD   BITMAP                  "res\\产品文件.bmp"
+
+IDB_BITMAP_NEW_KEYPAIR  BITMAP                  "res\\密钥对.bmp"
+
+IDB_BITMAP_NEW_KEY      BITMAP                  "res\\应用程序密钥.bmp"
+
+IDB_BITMAP_NEW_CERT     BITMAP                  "res\\证书.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_ABOUTBOX            "关于 UNIONMAN Smart Card Tool(&A)..."
+END
+
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#include "res\PCSCReaderDemo.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "l.CHS\afxres.rc"      // 标准组件
+#if !defined(_AFXDLL)
+#include "l.CHS\afxribbon.rc"   // MFC 功能区和控制条资源
+#endif
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

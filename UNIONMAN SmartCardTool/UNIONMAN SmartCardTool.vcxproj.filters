@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="PAGE1_APDU.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="page2_CardInfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="page3_download.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SM4\sm4.cpp">
+      <Filter>SM源码</Filter>
+    </ClCompile>
+    <ClCompile Include="page4_AppletLoad.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="progress.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\des源码\my_function.cpp">
+      <Filter>DES源码</Filter>
+    </ClCompile>
+    <ClCompile Include="pageNativePlus.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CSmartToolDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PCSCReader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PCSCReaderDemo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PAGE1_APDU.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="page2_CardInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="page3_download.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WINSCARD.H">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="page4_AppletLoad.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="progress.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SM4\sm4.h">
+      <Filter>SM源码</Filter>
+    </ClInclude>
+    <ClInclude Include="..\des源码\my_function.h">
+      <Filter>DES源码</Filter>
+    </ClInclude>
+    <ClInclude Include="Init_MF.h">
+      <Filter>库文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Init_SecurityHouse.h">
+      <Filter>库文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Init_WeLink.h">
+      <Filter>库文件</Filter>
+    </ClInclude>
+    <ClInclude Include="pageNativePlus.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CSmartToolDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PCSCReader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{74aeeb9d-863a-4d65-91e4-87d26cc7077f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{1a03db6c-a3c8-4a5c-91a0-5d5c8b688b24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="库文件">
+      <UniqueIdentifier>{626a5d55-9bb2-4044-ad70-efeba81bd76e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{0745f8b0-5e94-4727-98b5-c30f70752144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SM源码">
+      <UniqueIdentifier>{89152986-c59b-40ea-b66b-e8402e525795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DES源码">
+      <UniqueIdentifier>{083d5c6f-72ce-4f50-951f-337843e06a34}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Winscard.lib">
+      <Filter>库文件</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap1.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap2.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap3.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\Key1.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\txt.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\UNIONMAN SmartCardTool.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\产品文件.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\产品文件.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\打开文件.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\档案文件.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\读取.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\工作表图标.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\红色文件夹.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\接受目录.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\密钥对.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\密钥对.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\密钥对2.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\删除.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\删除.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\文档编辑.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\文档编辑.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\文档写入.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\文档新建.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\我工作.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\新建文件夹.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\新建文件夹.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\新建文件夹2.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\新建文件夹2.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\应用程序密钥.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\应用程序密钥.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\证书.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\证书.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="UNIONMAN SmartCardTool.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -11,6 +11,8 @@
 #include "page4_AppletLoad.h"
 #include "PAGE1_APDU.h"
 #include "pageNativePlus.h"
+#include "Loader.h"
+#include "UKeyLoader.h"
 
 
 
@@ -37,6 +39,9 @@ protected:
 	pageNativePlus m_page3;
 	page3downloadDlg m_page4;
 	page4AppletLOADDlg m_page5;
+	Loader m_page6;
+	UKeyLoader m_page7;
+
 	boolean flag_page1=false;
 	boolean flag_page2 = false;
 	boolean flag_page3 = false;

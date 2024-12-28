@@ -22,9 +22,6 @@
 #include   "..\SM4\sm4.h"
 
 #include "progress.h"
-#include "Init_MF.h"
-#include "Init_SecurityHouse.h"
-#include "Init_WeLink.h"
 
 using namespace std;
 
@@ -449,118 +446,7 @@ boolean page3downloadDlg::ExAuth(CString authKey)
 	else
 		return FALSE;
 }
-boolean page3downloadDlg::processScript(CString scriptFlag)
-{
-	CString sDispStatus = _T("");
-	CString sDispFalg;
 
-	CString sAPDU;
-	byte APDU[5 + 256];
-	byte Resp[256 + 2];
-	DWORD APDULen = 0;
-	DWORD RespLen = 256 + 2;
-
-	CString sStatus;
-	int apduNums, thisPos, percent;
-
-	CSmartToolDlg* pDlg = (CSmartToolDlg*)GetParent()->GetParent();
-
-	if (scriptFlag == _T("Init Security House"))
-	{
-		sDispFalg = _T("Init Security House");
-		apduNums = sizeof(bAPDU_SecurityHouse) / sizeof(bAPDU_SecurityHouse[0]);
-	}
-	else if (scriptFlag == _T("Init WeLink"))
-	{
-		sDispFalg = _T("Init WeLink");
-		apduNums = sizeof(bAPDU_WeLink) / sizeof(bAPDU_WeLink[0]);
-	}
-	else //if (scriptFlag == _T("Init MF"))
-	{
-		sDispFalg = _T("Init MF");
-		apduNums = sizeof(bAPDU_MF) / sizeof(bAPDU_MF[0]);
-	}
-
-
-	UpdateData(TRUE);
-	page3pcscprocess1.SetRange32(0, apduNums);//设定进度条控件的范围的下限和上限
-	thisPos = 0;
-	page3pcscprocess1.SetPos(thisPos);
-	percent = thisPos * 100 / apduNums;
-	sStatus.Format(_T("%d%%"), percent);
-	page3edtpcscStatus.SetWindowText(sStatus);
-	page3edtpcscStatus.PostMessage(WM_VSCROLL, SB_BOTTOM, 0);
-	UpdateData(FALSE);
-	UpdateWindow();
-
-
-	sDispStatus = sDispFalg;
-	pDlg->lbpcscActiveReader.SetWindowText(sDispStatus);
-	//MessageBox(sDispStatus);
-
-	int count = 0;
-	for (count = 0; count < apduNums; count++)
-	{	//cosdata[count]里存放的是单条APDU
-		if (scriptFlag == _T("Init MF"))
-		{
-			sAPDU.Format(_T("%s"), bAPDU_MF[count]);
-		}
-		else if (scriptFlag == _T("Init Security House"))
-		{
-			sAPDU.Format(_T("%s"), bAPDU_SecurityHouse[count]);
-		}
-		else if (scriptFlag == _T("Init WeLink"))
-		{
-			sAPDU.Format(_T("%s"), bAPDU_WeLink[count]);
-		}
-		else
-		{
-			MessageBox(_T("调用脚本参数不存在，退出运行！"));
-			return false;
-		}
-
-		APDULen = pDlg->Reader.StrToHex(sAPDU, APDU);
-		RespLen = 256 + 2;
-		memset(Resp, 0, RespLen);
-		if (!pDlg->Reader.Transmit(APDU, APDULen, Resp, RespLen))
-		{
-			sDispStatus = _T("发送APDU失败！\r\nSW=") + pDlg->Reader.GetError();
-			pDlg->lbpcscActiveReader.SetWindowText(sDispStatus);
-			return false;
-		}
-		if (((Resp[0] != 0x90) && (Resp[0] != 0x61)) || (RespLen != 2))
-		{
-			sDispStatus = _T("发送APDU失败！\r\nSW=") + pDlg->Reader.HexToStr(Resp, 2);
-			pDlg->lbpcscActiveReader.SetWindowText(sDispStatus);
-			return false;
-		}
-
-		UpdateData(TRUE);
-		thisPos = count + 1;
-		page3pcscprocess1.SetPos(thisPos);
-		percent = thisPos * 100 / apduNums;
-		sStatus.Format(_T("%d%%"), percent);
-		page3edtpcscStatus.SetWindowText(sStatus);
-		page3edtpcscStatus.PostMessage(WM_VSCROLL, SB_BOTTOM, 0);
-		UpdateData(FALSE);
-		UpdateWindow();
-
-
-		//MFC 循环界面假死的解决办法
-		//1. 单线程解决：
-		// 派发消息
-		MSG msg;
-		if (PeekMessage(&msg, (HWND)NULL, 0, 0, PM_REMOVE))
-		{
-			::SendMessage(msg.hwnd, msg.message, msg.wParam, msg.lParam);
-		}
-		//其他解决方法:把开始按钮中的那些循环部分单独写成一个子线程, 在按钮的处理函数中产生子线程, 主线程就不会因为循环而阻塞消息了.
-		//参见：https://blog.csdn.net/weixin_34107739/article/details/85560124?utm_medium=distribute.pc_relevant_download.none-task-blog-baidujs-2.nonecase&depth_1-utm_source=distribute.pc_relevant_download.none-task-blog-baidujs-2.nonecase
-	}
-	sDispStatus = sDispFalg + _T("成功！");
-	pDlg->lbpcscActiveReader.SetWindowText(sDispStatus);
-	return true;
-}
 LRESULT page3downloadDlg::OnMsg(WPARAM wp, LPARAM lp)
 {
 	page3pcscprocess1.SetPos((int)wp);

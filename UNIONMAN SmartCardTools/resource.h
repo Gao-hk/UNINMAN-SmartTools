@@ -17,7 +17,9 @@
 #define IDD_PAGE_NATIVE_PLUS            140
 #define IDD_PAGE_Native_PLUS            141
 #define IDI_ICON_KEY                    142
+#define IDD_PAGE_CardOTA                142
 #define IDI_ICON_TXT                    143
+#define IDD_PAGE_UKeyOTA                143
 #define IDI_ICON_RECORD1                144
 #define IDI_ICON_RECORD2                145
 #define IDI_ICON_BIN2                   146
@@ -139,6 +141,21 @@
 #define IDR_MENU_MF                     1103
 #define IDR_MENU_ADF                    1104
 #define IDR_MENU_FILE                   1105
+#define edtCosFile_bysct                1110
+#define edtCosFile_sfm25                1111
+#define btnOpenFile_sfm25               1112
+#define btnOpenFile_bysct               1113
+#define btnGenCipherSCT                 1114
+#define cardOTAprocess                  1115
+#define btnGetCosVer                    1116
+#define btnVersionRollback              1117
+#define btnFirmwareUpdate               1118
+#define edtCardOTAStatus                1119
+#define btnOpenUKeyBin                  1120
+#define edtCosFile_UkeyBin              1121
+#define btnGenCipherBinSCT              1122
+#define edtUKeyOTAStatus                1123
+#define ukeyOTAprocess                  1124
 #define ID_IDR_OPENMF                   32701
 #define ID_IDR_DELMF                    32702
 #define ID_OpenADF                      32703
@@ -178,9 +195,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        179
+#define _APS_NEXT_RESOURCE_VALUE        181
 #define _APS_NEXT_COMMAND_VALUE         32835
-#define _APS_NEXT_CONTROL_VALUE         1110
+#define _APS_NEXT_CONTROL_VALUE         1125
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

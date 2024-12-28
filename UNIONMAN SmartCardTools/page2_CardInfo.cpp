@@ -1144,7 +1144,6 @@ void page2CardInfoDlg::OnBnClickedbtnsetshalist()
 		byte SHAListTLV[2048];
 		int SHAListTLVLen = 0;
 		int index;
-		byte thisApduDataLen;
 		byte thisTag;
 		byte thisLen;
 		CString thisStr;

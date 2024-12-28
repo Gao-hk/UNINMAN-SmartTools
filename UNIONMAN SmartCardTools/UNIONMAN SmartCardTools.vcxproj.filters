@@ -40,6 +40,8 @@
     <ClCompile Include="PCSCReaderDemo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Loader.cpp" />
+    <ClCompile Include="UKeyLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PAGE1_APDU.h">
@@ -96,6 +98,8 @@
     <ClInclude Include="PCSCReader.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Loader.h" />
+    <ClInclude Include="UKeyLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="源文件">
@@ -139,9 +143,6 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\txt.ico">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="res\UNIONMAN SmartCardTool.ico">
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\产品文件.bmp">
@@ -222,6 +223,7 @@
     <Image Include="res\证书.ico">
       <Filter>资源文件</Filter>
     </Image>
+    <Image Include="res\UNIONMAN SmartCardTools.ico" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt">
@@ -229,8 +231,6 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="UNIONMAN SmartCardTool.rc">
-      <Filter>资源文件</Filter>
-    </ResourceCompile>
+    <ResourceCompile Include="UNIONMAN SmartCardTools.rc" />
   </ItemGroup>
 </Project>

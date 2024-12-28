@@ -45,7 +45,6 @@ protected:
 	afx_msg boolean MakeSmartCos2Bootloader(CString authKey);
 	afx_msg boolean MakeJCos2Bootloader();
 	afx_msg boolean MakeZKCos2Bootloader();
-	afx_msg boolean processScript(CString scriptFlag);
 	afx_msg boolean checkMF();
 	afx_msg boolean ExAuth(CString authKey);
 

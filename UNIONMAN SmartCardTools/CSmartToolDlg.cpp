@@ -4,11 +4,6 @@
 #include "tchar.h"
 #include "CSmartToolDlg.h"
 #include "afxdialogex.h"
-#include "PAGE1_APDU.h"
-#include "PAGE2_CardInfo.h"
-
-
-
 
 #include <iostream>
 #include <string>
@@ -187,7 +182,9 @@ BOOL CSmartToolDlg::OnInitDialog()
 	m_tab.InsertItem(1, _T("CardInfo "));
 	m_tab.InsertItem(2, _T("FileList "));
 	m_tab.InsertItem(3, _T("COS下载 "));
-	//m_tab.InsertItem(4, _T("Applet管理 "));
+	m_tab.InsertItem(4, _T("Applet管理 "));
+	m_tab.InsertItem(5, _T("Card OTA  "));
+	m_tab.InsertItem(6, _T("UKey OTA  "));
 
 
 	//创建子对话框
@@ -196,10 +193,12 @@ BOOL CSmartToolDlg::OnInitDialog()
 	m_page3.Create(MAKEINTRESOURCE(IDD_PAGE_Native_PLUS), &m_tab);
 	m_page4.Create(MAKEINTRESOURCE(IDD_PAGE3_Download), &m_tab);
 	m_page5.Create(MAKEINTRESOURCE(IDD_PAGE4_CapLoadandInstall), &m_tab);
+	m_page6.Create(MAKEINTRESOURCE(IDD_PAGE_CardOTA), &m_tab);
+	m_page7.Create(MAKEINTRESOURCE(IDD_PAGE_UKeyOTA), &m_tab);
 	//计算对话框的现实位置和大小
 	CRect rc;
 	m_tab.GetClientRect(rc);
-	rc.top += 48;
+	rc.top += 45;
 	//rc.left += 2;
 	//rc.right -= 2;
 	rc.bottom -= 2;
@@ -210,6 +209,8 @@ BOOL CSmartToolDlg::OnInitDialog()
 	m_page3.MoveWindow(rc);
 	m_page4.MoveWindow(rc);
 	m_page5.MoveWindow(rc);
+	m_page6.MoveWindow(rc);
+	m_page7.MoveWindow(rc);
 
 	//默认显示第一页
 	m_page1.ShowWindow(SW_SHOW);
@@ -217,6 +218,8 @@ BOOL CSmartToolDlg::OnInitDialog()
 	m_page3.ShowWindow(SW_HIDE);
 	m_page4.ShowWindow(SW_HIDE);
 	m_page5.ShowWindow(SW_HIDE);
+	m_page6.ShowWindow(SW_HIDE);
+	m_page7.ShowWindow(SW_HIDE);
 	if (!flag_page1)
 	{
 		m_page1.initAPDUPage();
@@ -271,6 +274,8 @@ void CSmartToolDlg::OnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult)
 		m_page3.ShowWindow(SW_HIDE);
 		m_page4.ShowWindow(SW_HIDE);
 		m_page5.ShowWindow(SW_HIDE);
+		m_page6.ShowWindow(SW_HIDE);
+		m_page7.ShowWindow(SW_HIDE);
 		if (!flag_page1)
 		{			
 			m_page1.initAPDUPage();
@@ -283,6 +288,8 @@ void CSmartToolDlg::OnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult)
 		m_page3.ShowWindow(SW_HIDE);
 		m_page4.ShowWindow(SW_HIDE);
 		m_page5.ShowWindow(SW_HIDE);
+		m_page6.ShowWindow(SW_HIDE);
+		m_page7.ShowWindow(SW_HIDE);
 		if (!flag_page2)
 		{
 			m_page2.initCardInfoPage();
@@ -295,6 +302,8 @@ void CSmartToolDlg::OnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult)
 		m_page3.ShowWindow(SW_SHOW);
 		m_page4.ShowWindow(SW_HIDE);
 		m_page5.ShowWindow(SW_HIDE);
+		m_page6.ShowWindow(SW_HIDE);
+		m_page7.ShowWindow(SW_HIDE);
 		if (!flag_page3)
 		{
 			m_page3.initNativePlusage();
@@ -307,30 +316,46 @@ void CSmartToolDlg::OnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult)
 		m_page3.ShowWindow(SW_HIDE);
 		m_page4.ShowWindow(SW_SHOW);
 		m_page5.ShowWindow(SW_HIDE);
+		m_page6.ShowWindow(SW_HIDE);
+		m_page7.ShowWindow(SW_HIDE);
 		if (!flag_page4)
 		{
 			m_page4.initDownloadPage();
 			flag_page4 = true;
 		}
 		break;
-	//case 4:
-	//	m_page1.ShowWindow(SW_HIDE);
-	//	m_page2.ShowWindow(SW_HIDE);
-	//	m_page3.ShowWindow(SW_HIDE);
-	//	m_page4.ShowWindow(SW_HIDE);
-	//	m_page5.ShowWindow(SW_SHOW);
-	//	if (!flag_page4)
-	//	{
-	//		m_page5.initAppletLOADPage();
-	//		flag_page4 = true;
-	//	}
-	//	break;
-	default:
-		m_page1.ShowWindow(SW_SHOW);
+	case 4:
+		m_page1.ShowWindow(SW_HIDE);
+		m_page2.ShowWindow(SW_HIDE);
+		m_page3.ShowWindow(SW_HIDE);
+		m_page4.ShowWindow(SW_HIDE);
+		m_page5.ShowWindow(SW_SHOW);
+		m_page6.ShowWindow(SW_HIDE);
+		m_page7.ShowWindow(SW_HIDE);
+		if (!flag_page4)
+		{
+			m_page5.initAppletLOADPage();
+			flag_page4 = true;
+		}
+		break;
+	case 5:
+		m_page1.ShowWindow(SW_HIDE);
 		m_page2.ShowWindow(SW_HIDE);
 		m_page3.ShowWindow(SW_HIDE);
 		m_page4.ShowWindow(SW_HIDE);
 		m_page5.ShowWindow(SW_HIDE);
+		m_page6.ShowWindow(SW_SHOW);
+		m_page7.ShowWindow(SW_HIDE);
+		break;
+	case 6:
+		m_page1.ShowWindow(SW_HIDE);
+		m_page2.ShowWindow(SW_HIDE);
+		m_page3.ShowWindow(SW_HIDE);
+		m_page4.ShowWindow(SW_HIDE);
+		m_page5.ShowWindow(SW_HIDE);
+		m_page6.ShowWindow(SW_HIDE);
+		m_page7.ShowWindow(SW_SHOW);
+	default:
 		break;
 	}
 

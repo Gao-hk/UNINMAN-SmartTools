@@ -22,8 +22,6 @@ public:
 
 	enum { IDD = IDD_SMARTTOOL_DIALOG	};
 
-	const char* sha1filepath = "SHA1_List.csv";
-
 	CTabCtrl	m_tab;
 	PCSCReader Reader;
 
@@ -46,8 +44,6 @@ protected:
 	boolean flag_page5 = false;
 
 
-
-	int InitSha1List();
 	void SetDlgStatus();
 	void LoadReaders();
 	void LoadReadersList();

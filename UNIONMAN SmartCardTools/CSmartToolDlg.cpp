@@ -110,51 +110,6 @@ END_MESSAGE_MAP()
 
 
 // CSmartToolDlg 消息处理程序
-
-
-int CSmartToolDlg::InitSha1List()
-{
-	const char* filepath = sha1filepath;// "SHA1_List.csv";
-
-	struct _stat info;
-	_stat(filepath, &info);
-	int fileSize = info.st_size;
-
-	// 写文件
-	ofstream outFile;// ("SHA1_List.csv", ios::app);//ios::app表示在原文件末尾追加
-	outFile.open(filepath, ios::app); // 这里的打开模式不可省略，app表示在文件末尾添加
-	if (!outFile) {
-		cout << "Open the file failure...";
-		exit(0);
-	}
-	if (fileSize == 0)
-	{
-		outFile << "SHA1" << ',' << "Information" << ',' << endl;
-		outFile << "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" << ',' << "空白" << ',' << endl;
-		outFile << "7CAD24AAC1B78EBD8BE7F08225AD56F91BB2B839" << ',' << "安全屋(同密电)" << ',' << endl;
-		outFile << "C3F75A483FDCECE714A953BAE48B0F82E61439B7" << ',' << "华为1" << ',' << endl;
-		outFile << "6ED3668F09206CB45417C1C655E1B5EF9573B32D" << ',' << "华为2" << ',' << endl;
-		outFile << "3C4198063E8C26AFC2BEFA7CE0ED5FA581BC82DB" << ',' << "湖南OA" << ',' << endl;
-		outFile << "3B4A8033FAD95803EB21EA3F0FD95DB9CD030C4F" << ',' << "中卡" << ',' << endl;
-		outFile << "C14646CF5AEBBE40ADC659A55B0B0F45F854F80F" << ',' << "宁夏移动" << ',' << endl;
-		outFile << "8C543471D44F0821AC1109879DA08C32AF3EBB92" << ',' << "安徽大数据项目（齐安信云手机）" << ',' << endl;
-		outFile << "1952B350971AFEBD7D41945F530B31AEC7F850C3" << ',' << "琥珀盾" << ',' << endl;
-		outFile << "10B6FE759A81D52DBDC03417CB4F9C6FA32842B5" << ',' << "安全屋海外" << ',' << endl;
-		outFile << "DC3B7345CB8327BCA9B09A17378BF573AF4D3E20" << ',' << "兵器" << ',' << endl;
-		outFile << "6987335CE18D8BC9263AF2969BACEE175CFB4E86" << ',' << "网信所" << ',' << endl;
-		outFile << "65D0D48C301E5B54F40D880D39AB9C7104C671AC" << ',' << "启迪" << ',' << endl;
-		outFile << "E8259ACBBC13105321ACCACF891AD00B802F858E" << ',' << "国网思极网安" << ',' << endl;
-		outFile << "E7CE74187B23472C8D25BCDA651796BB585E5305" << ',' << "齊耀电子" << ',' << endl;
-		outFile << "8722399D037A4D0B4C17583A2DFBEFD3F848B09E" << ',' << "对外版" << ',' << endl;
-		outFile << "B61D0C972ED638946621BA7F74BB6611DA24D8D1" << ',' << "甘肃武警项目（对接一所）" << ',' << endl;
-		outFile << "2509952797814FBDCF3D1AEFEB8F059FFCFEBA6C" << ',' << "宁夏政法委新sha值" << ',' << endl;
-		outFile << "34F8756D8C408AE9F62AD3F234DAD3D880A30FFD" << ',' << "南瑞" << ',' << endl;
-	}
-	outFile.close();
-
-	return 0;
-}
-
 void CSmartToolDlg::SetDlgStatus()
 {
 	if (Reader.ActiveReader() == "")
@@ -228,11 +183,11 @@ BOOL CSmartToolDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
-	m_tab.InsertItem(0, _T("APDU"));
-	m_tab.InsertItem(1, _T("卡信息（旧）"));
-	m_tab.InsertItem(3, _T("Native+ FileList"));
-	m_tab.InsertItem(4, _T("COS下载（旧）"));
-	m_tab.InsertItem(5, _T("Applet"));
+	m_tab.InsertItem(0, _T("APDU "));
+	m_tab.InsertItem(1, _T("CardInfo "));
+	m_tab.InsertItem(2, _T("FileList "));
+	m_tab.InsertItem(3, _T("COS下载 "));
+	//m_tab.InsertItem(4, _T("Applet管理 "));
 
 
 	//创建子对话框
@@ -244,7 +199,7 @@ BOOL CSmartToolDlg::OnInitDialog()
 	//计算对话框的现实位置和大小
 	CRect rc;
 	m_tab.GetClientRect(rc);
-	rc.top += 45;
+	rc.top += 48;
 	//rc.left += 2;
 	//rc.right -= 2;
 	rc.bottom -= 2;
@@ -268,16 +223,8 @@ BOOL CSmartToolDlg::OnInitDialog()
 		flag_page1 = true;
 	}
 
-	//初始显示值
-	//m_page1.GetDlgItem(IDC_EDT_DATA)->SetWindowText(_T("7E25000021"));
-
-	// TODO:  在此添加额外的初始化代码
-	//LoadReaders();
 	LoadReadersList();
 	SetDlgStatus();
-
-	InitSha1List();
-
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -366,24 +313,24 @@ void CSmartToolDlg::OnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult)
 			flag_page4 = true;
 		}
 		break;
-	case 4:
-		m_page1.ShowWindow(SW_HIDE);
-		m_page2.ShowWindow(SW_HIDE);
-		m_page3.ShowWindow(SW_HIDE);
-		m_page4.ShowWindow(SW_HIDE);
-		m_page5.ShowWindow(SW_SHOW);
-		if (!flag_page4)
-		{
-			m_page5.initAppletLOADPage();
-			flag_page4 = true;
-		}
-		break;
+	//case 4:
+	//	m_page1.ShowWindow(SW_HIDE);
+	//	m_page2.ShowWindow(SW_HIDE);
+	//	m_page3.ShowWindow(SW_HIDE);
+	//	m_page4.ShowWindow(SW_HIDE);
+	//	m_page5.ShowWindow(SW_SHOW);
+	//	if (!flag_page4)
+	//	{
+	//		m_page5.initAppletLOADPage();
+	//		flag_page4 = true;
+	//	}
+	//	break;
 	default:
-		m_page1.ShowWindow(SW_HIDE);
+		m_page1.ShowWindow(SW_SHOW);
 		m_page2.ShowWindow(SW_HIDE);
 		m_page3.ShowWindow(SW_HIDE);
 		m_page4.ShowWindow(SW_HIDE);
-		m_page5.ShowWindow(SW_SHOW);
+		m_page5.ShowWindow(SW_HIDE);
 		break;
 	}
 
@@ -454,46 +401,15 @@ boolean CSmartToolDlg::GetgAtrCosType(CString &ATR)
 		return false;
 	}
 
-	if (0 == lstrcmp(ATR.Mid(12, 12), _T("43532E4A4F53")))//3B9D96801FC743532E4A4F532056322E323094C7
-		gAtrCosType = _T("CS.JCOS");
-
-	else if (0 == lstrcmp(ATR.Mid(26, 14), _T("4D54325F576C74")))
-		gAtrCosType = _T("MT2_Wlt");
-	else if (0 == lstrcmp(ATR.Mid(26, 14), _T("4D54325F434F53")))
-		gAtrCosType = _T("MT2_COS");
-	else if (0 == lstrcmp(ATR.Mid(26, 14), _T("4D5432224E6174")))
-		gAtrCosType = _T("MT222_Nat+");
-	else if (0 == lstrcmp(ATR.Mid(26, 14), _T("4D5432114E6174")))
-		gAtrCosType = _T("MT211_Nat+");
-	else if (0 == lstrcmp(ATR.Mid(26, 14), _T("4153494D4E6174")))
-		gAtrCosType = _T("SIM_Nat+");
-
-	else if (0 == lstrcmp(ATR.Mid(26, 14), _T("4D543222534B46")))
-		gAtrCosType = _T("MT222_SKF");
-	else if (0 == lstrcmp(ATR.Mid(26, 14), _T("4D543211534B46")))
-		gAtrCosType = _T("MT211_SKF");
-	else if (0 == lstrcmp(ATR.Mid(26, 14), _T("4153494D534B46")))
-		gAtrCosType = _T("SIM_SKF");
-
+	if (0 == lstrcmp(ATR.Mid(26, 14), _T("626F79615F5632")))
+		gAtrCosType = _T("boya_V2");
+	else if (0 == lstrcmp(ATR.Mid(26, 14), _T("626F796153494D")))
+		gAtrCosType = _T("boyaSIM");
+	else if (0 == lstrcmp(ATR.Mid(26, 14), _T("626F79614C4F44")))
+		gAtrCosType = _T("boyaLOD");
 	else if (0 == lstrcmp(ATR.Mid(28, 4), _T("C300")))//3B1D968117081212003D17040000C300
-		gAtrCosType = _T("MT2_Boot");
+		gAtrCosType = _T("M25_Boot");
 
-	else if (0 == lstrcmp(ATR.Mid(26, 14), _T("4D54315F434F53")))
-		gAtrCosType = _T("MT1_COS");
-	else if (0 == lstrcmp(ATR.Mid(26, 14), _T("4D54315F534B46")))
-		gAtrCosType = _T("MT1_SKF");
-
-	else if (0 == lstrcmp(ATR, _T("3B9F96801FC38031E073FA211B678500000200020055")))
-		gAtrCosType = _T("中卡COS");
-	else if (0 == lstrcmp(ATR.Mid(6, 2) + ATR.Mid(22, 2), _T("E086")))
-		gAtrCosType = _T("MT1_Boot");
-
-	else if (0 == lstrcmp(ATR.Mid(8, 8), _T("57694C4C")))
-		gAtrCosType = _T("THD88_JCOS");
-	else if (0 == lstrcmp(ATR, _T("3B9796803F47A08031E073FE211BBF")))
-		gAtrCosType = _T("融卡_JCOS");
-	else if (0 == lstrcmp(ATR, _T("3B9F96803FC7A08031E073FE211B634E10518300900048")))
-		gAtrCosType = _T("恒宝_JCOS");
 	else
 		gAtrCosType = _T("未知卡片");
 	

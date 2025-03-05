@@ -61,6 +61,9 @@ public:
 	CEdit edtpcscSHA_43;
 	CEdit edtpcscSHA_53;	
 
+	CEdit edtpcscSHA_04;
+	CEdit edtpcscSHA_05;
+
 	CButton btnpcscGet;
 	CButton btnpcscSet;
 

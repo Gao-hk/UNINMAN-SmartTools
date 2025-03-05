@@ -77,6 +77,9 @@ void page2CardInfoDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, edtSHA_43, edtpcscSHA_43);
 	DDX_Control(pDX, edtSHA_53, edtpcscSHA_53);
 
+	DDX_Control(pDX, edtSHA_04, edtpcscSHA_04);
+	DDX_Control(pDX, edtSHA_05, edtpcscSHA_05);
+
 	DDX_Control(pDX, edtCosVer, edtpcscCosVer);
 	DDX_Control(pDX, edtSn, edtpcscSn);
 	DDX_Control(pDX, edtStatus, edtpcscStatus);
@@ -937,6 +940,9 @@ void page2CardInfoDlg::OnBnClickedbtngetshalist()
 	edtpcscSHA_43.SetWindowText(_T(""));
 	edtpcscSHA_53.SetWindowText(_T(""));
 
+	edtpcscSHA_04.SetWindowText(_T(""));
+	edtpcscSHA_05.SetWindowText(_T(""));
+
 	edtpcscStatus.SetWindowText(_T(""));
 	edtpcscStatus.PostMessage(WM_VSCROLL, SB_BOTTOM, 0);
 
@@ -1105,6 +1111,15 @@ void page2CardInfoDlg::OnBnClickedbtngetshalist()
 
 		case 0x53:
 			edtpcscSHA_53.SetWindowText(stringSHA);
+			break;
+
+
+		case 0x04:
+			edtpcscSHA_04.SetWindowText(stringSHA);
+			break;
+
+		case 0x05:
+			edtpcscSHA_05.SetWindowText(stringSHA);
 			break;
 		}
 	}

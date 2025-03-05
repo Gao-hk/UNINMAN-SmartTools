@@ -59,6 +59,8 @@
 #define IDC_STATIC_SHA1List             1015
 #define IDC_STATIC_SHA1List2            1016
 #define IDC_STATIC_SN2                  1017
+#define edtSHA_04                       1018
+#define edtSHA_05                       1019
 #define edtCosVer                       1021
 #define edtCosIP                        1022
 #define edtSn                           1023

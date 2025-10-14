@@ -180,7 +180,8 @@ BOOL CSmartToolDlg::OnInitDialog()
 
 	m_tab.InsertItem(0, _T("APDU "));
 	m_tab.InsertItem(1, _T("CardInfo "));
-	m_tab.InsertItem(2, _T("FileList "));
+	//m_tab.InsertItem(2, _T("FileList "));
+	m_tab.InsertItem(2, _T("可选功能配置 "));
 	m_tab.InsertItem(3, _T("COS下载 "));
 	m_tab.InsertItem(4, _T("Applet管理 "));
 	m_tab.InsertItem(5, _T("Card OTA  "));
@@ -190,7 +191,8 @@ BOOL CSmartToolDlg::OnInitDialog()
 	//创建子对话框
 	m_page1.Create(MAKEINTRESOURCE(IDD_PAGE1_APDU), &m_tab);
 	m_page2.Create(MAKEINTRESOURCE(IDD_PAGE2_CardInfo), &m_tab);
-	m_page3.Create(MAKEINTRESOURCE(IDD_PAGE_Native_PLUS), &m_tab);
+	//m_page3.Create(MAKEINTRESOURCE(IDD_PAGE_Native_PLUS), &m_tab);
+	m_page3.Create(MAKEINTRESOURCE(IDD_PAGE5_SetFunc), &m_tab);
 	m_page4.Create(MAKEINTRESOURCE(IDD_PAGE3_Download), &m_tab);
 	m_page5.Create(MAKEINTRESOURCE(IDD_PAGE4_CapLoadandInstall), &m_tab);
 	m_page6.Create(MAKEINTRESOURCE(IDD_PAGE_CardOTA), &m_tab);
@@ -306,7 +308,7 @@ void CSmartToolDlg::OnSelchangeTab1(NMHDR* pNMHDR, LRESULT* pResult)
 		m_page7.ShowWindow(SW_HIDE);
 		if (!flag_page3)
 		{
-			m_page3.initNativePlusage();
+			m_page3.initSetFuncPage();
 			flag_page3 = true;
 		}
 		break;
@@ -473,7 +475,7 @@ void CSmartToolDlg::reConnect()
 
 		m_page1.initAPDUPage();
 		m_page2.initCardInfoPage();
-		m_page3.initNativePlusage();
+		//m_page3.initNativePlusage();
 		m_page4.initDownloadPage();
 		m_page5.initAppletLOADPage();
 

@@ -42,6 +42,7 @@
 #define IDB_BITMAP_NEW_KEYPAIR          176
 #define IDB_BITMAP_NEW_KEY              177
 #define IDB_BITMAP_NEW_CERT             178
+#define IDD_PAGE5_SetFunc               179
 #define btnReaders                      1000
 #define btnReset                        1001
 #define lstReaders                      1002
@@ -158,6 +159,24 @@
 #define btnGenCipherBinSCT              1122
 #define edtUKeyOTAStatus                1123
 #define ukeyOTAprocess                  1124
+#define IDC_CHECK_WRIETESN              1125
+#define page5btnDevAuth                 1126
+#define page5DevAuthBtn                 1127
+#define IDC_CHECK_S2S_SWITCH            1129
+#define IDC_CHECK_S2S_SM4_SWITCH        1130
+#define IDC_CHECK_BINDING_SWITCH        1131
+#define IDC_CHECK_BIDA_SWITCH           1132
+#define IDC_CHECK_P2P_SETIP_SWITCH      1133
+#define IDC_CHECK_OTP_SWITCH            1134
+#define IDC_CHECK_PROVIDE_LOCALINFO_SWITCH 1135
+#define IDC_CHECK_SIM_LOG_SWITCH        1136
+#define IDC_CHECK_MCC_IP_POOL_SWITCH    1137
+#define IDC_CHECK_REPORTING_LOCATION_SWITCH 1138
+#define IDC_EDIT_MCC_IP                 1139
+#define page5GetSwitchStatus            1140
+#define page5SetSwitchStatus            1141
+#define page5GetMCCIP                   1142
+#define page5SetMCCIP                   1143
 #define ID_IDR_OPENMF                   32701
 #define ID_IDR_DELMF                    32702
 #define ID_OpenADF                      32703
@@ -199,7 +218,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        181
 #define _APS_NEXT_COMMAND_VALUE         32835
-#define _APS_NEXT_CONTROL_VALUE         1125
+#define _APS_NEXT_CONTROL_VALUE         1140
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

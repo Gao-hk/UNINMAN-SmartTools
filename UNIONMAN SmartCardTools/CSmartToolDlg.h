@@ -9,6 +9,7 @@
 #include "PAGE2_CardInfo.h"
 #include "PAGE3_download.h"
 #include "page4_AppletLoad.h"
+#include "page5SetFunc.h"
 #include "PAGE1_APDU.h"
 #include "pageNativePlus.h"
 #include "Loader.h"
@@ -36,7 +37,8 @@ protected:
 
 	page1ApduDlg m_page1;
 	page2CardInfoDlg m_page2;
-	pageNativePlus m_page3;
+	//pageNativePlus m_page3;
+	page5SetFuncDlg m_page3;
 	page3downloadDlg m_page4;
 	page4AppletLOADDlg m_page5;
 	Loader m_page6;

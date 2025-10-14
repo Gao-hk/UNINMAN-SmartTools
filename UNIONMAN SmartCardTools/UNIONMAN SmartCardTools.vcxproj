@@ -108,6 +108,7 @@
     <ClInclude Include="..\SM4\sm4.h" />
     <ClInclude Include="CSmartToolDlg.h" />
     <ClInclude Include="Loader.h" />
+    <ClInclude Include="page5SetFunc.h" />
     <ClInclude Include="PCSCReader.h" />
     <ClInclude Include="Init_MF.h" />
     <ClInclude Include="Init_SecurityHouse.h" />
@@ -130,6 +131,7 @@
     <ClCompile Include="..\SM4\sm4.cpp" />
     <ClCompile Include="CSmartToolDlg.cpp" />
     <ClCompile Include="Loader.cpp" />
+    <ClCompile Include="page5SetFunc.cpp" />
     <ClCompile Include="PCSCReader.cpp" />
     <ClCompile Include="PCSCReaderDemo.cpp" />
     <ClCompile Include="PAGE1_APDU.cpp" />

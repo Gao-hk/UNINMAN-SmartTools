@@ -40,8 +40,15 @@
     <ClCompile Include="PCSCReaderDemo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Loader.cpp" />
-    <ClCompile Include="UKeyLoader.cpp" />
+    <ClCompile Include="page5SetFunc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Loader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="UKeyLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PAGE1_APDU.h">
@@ -98,8 +105,15 @@
     <ClInclude Include="PCSCReader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Loader.h" />
-    <ClInclude Include="UKeyLoader.h" />
+    <ClInclude Include="page5SetFunc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Loader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UKeyLoader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="源文件">

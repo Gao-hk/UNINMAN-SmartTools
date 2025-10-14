@@ -1528,6 +1528,7 @@ void page2CardInfoDlg::OnBnClickedbtngetip()
 
 	//Get IP
 	sAPDU = "9901001110";
+	GetIP_Label1:
 	APDULen = pDlg->Reader.StrToHex(sAPDU, APDU);
 	RespLen = 256 + 2;
 	memset(Resp, 0, RespLen);
@@ -1539,6 +1540,11 @@ void page2CardInfoDlg::OnBnClickedbtngetip()
 	}
 	if (RespLen == 2)
 	{
+		if (Resp[0] == 0x67)
+		{
+			sAPDU = "9901001108";
+			goto GetIP_Label1;
+		}
 		CString disp = _T("Ö´ÐÐ¶ÁGetIPÊ§°Ü£¡\r\nSW=") + pDlg->Reader.HexToStr(Resp, 2);
 		MessageBox(disp);
 		edtpcscStatus.SetWindowText(disp);

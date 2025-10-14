@@ -150,6 +150,7 @@ int getFileTotalLine(CString road)
 }
 
 CString gST1FirmwareFilePathNameStr;
+CString gST1FirmwareFilePathNameStr2;
 #define write_boyaST1_APDU(...)	\
 do	\
 {	\
@@ -197,6 +198,19 @@ do	\
 		fclose(fp1);	\
 		fclose(fp2);	\
 		fclose(fp3);	\
+} while (0);
+
+
+#define write_boyaST1_SN_Log(...)	\
+do	\
+{	\
+	FILE * fp = fopen(gST1FirmwareFilePathNameStr2 + ".txt", "a+");	\
+	if(fp)	\
+	{	\
+		fprintf(fp, __VA_ARGS__);	\
+		fprintf(fp, "\n");	\
+		fclose(fp);	\
+	}	\
 } while (0);
 
 unsigned char checkSum(unsigned char* pData, unsigned int dataLen)
@@ -991,6 +1005,54 @@ boolean Loader::Download_Firmwarecipher()
 
 	}
 
+	gST1FirmwareFilePathNameStr2 = filePath;
+	//需要记录SN
+	if (((CButton*)GetDlgItem(IDC_CHECK_WRIETESN))->GetCheck() == 1)
+	{
+		CString str = " ";
+		CString sAPDU, sSW;
+		byte APDU[5 + 256 + 128];
+		byte Resp[256 + 2 + 128];
+		DWORD APDULen = 0;
+		DWORD RespLen = 256 + 2;
+		CString sStatus;
+
+		byte cosFirmwareINFO[0x1E];
+
+		CSmartToolDlg* pDlg = (CSmartToolDlg*)GetParent()->GetParent();
+
+		////////////////////
+		//首先进行鉴权处理
+		//处理APDU
+		sAPDU = "9901000108";
+		APDULen = pDlg->Reader.StrToHex(sAPDU, APDU);
+		RespLen = 256 + 2;
+		::memset(Resp, 0, RespLen);
+		if (!pDlg->Reader.Transmit(APDU, APDULen, Resp, RespLen))
+		{
+			UpdateData(TRUE);
+			sStatus = pDlg->Reader.GetError();
+			edtpcscCardOTAStatus.SetWindowText(sStatus);
+			edtpcscCardOTAStatus.PostMessage(WM_VSCROLL, SB_BOTTOM, 0);
+			UpdateData(FALSE);
+			MessageBox(sStatus);
+			return FALSE;
+		}
+		if ((RespLen != 8 + 2)
+			|| ("9000" != pDlg->Reader.HexToStr(Resp + 8, 2)))
+		{
+			UpdateData(TRUE);
+			sStatus = _T("获取SN命令 GetSN失败！\r\nSW=") + pDlg->Reader.HexToStr(Resp, 2);
+			edtpcscCardOTAStatus.SetWindowText(sStatus);
+			edtpcscCardOTAStatus.PostMessage(WM_VSCROLL, SB_BOTTOM, 0);
+			UpdateData(FALSE);
+			MessageBox(sStatus);
+			return FALSE;
+		}
+
+		write_boyaST1_SN_Log(pDlg->Reader.HexToStr(Resp, 8));
+	}
+
 	UpdateData(TRUE);
 	pcsccardOTAprocess.SetPos(fileLines);
 	sStatus.Format(_T("Congratulations! 100%% loaded."));
@@ -1001,9 +1063,12 @@ boolean Loader::Download_Firmwarecipher()
 
 	/////////////////////////////////////////////////////////////////
 	MessageBox(_T("恭喜您！卡片固件更新成功！\n\n重启设备后生效。"));
+
+
+
 	return TRUE;
 }
 void Loader::OnBnClickedbtnfirmwareupdate()
 {
-	Download_Firmwarecipher();
+	Download_Firmwarecipher();	
 }

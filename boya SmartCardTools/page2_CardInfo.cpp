@@ -254,6 +254,62 @@ boolean page2CardInfoDlg::checkMF()
 		return FALSE;
 }
 
+boolean page2CardInfoDlg::SKF_DevAuth(CString authKey)
+{
+	CString sAPDU;
+	byte APDU[1000];
+	byte Resp[1000];
+	DWORD APDULen = 0;
+	DWORD RespLen = 1000;
+	CString sKey;
+	unsigned char key[16] = { 0 };
+	BYTE thisRandom[16];
+
+	CSmartToolDlg* pDlg = (CSmartToolDlg*)GetParent()->GetParent();
+
+	pDlg->Reader.StrToHex(authKey, key);
+
+	//取8字节随机数，后补8字节00至16字节
+	sAPDU = "9950000008";
+	APDULen = pDlg->Reader.StrToHex(sAPDU, APDU);
+	RespLen = 256 + 2;
+	::memset(Resp, 0, RespLen);
+	if (!pDlg->Reader.Transmit(APDU, APDULen, Resp, RespLen))
+	{
+		MessageBox(pDlg->Reader.GetError());
+		return FALSE;
+	}
+	if (RespLen != 10)
+	{
+		MessageBox(_T("获取随机数失败！退出"));
+		return FALSE;
+	}
+	::memcpy(thisRandom, Resp, 8);
+	::memset(thisRandom + 8, 0, 8);
+
+	//authKey 计算认证数据
+	//SM4算法
+	sm4_context ctx;
+	CString outS;
+	//encrypt standard testing vector
+	sm4_setkey_enc(&ctx, key);
+	sm4_crypt_ecb(&ctx, 1, 16, thisRandom, APDU + 5);
+
+	//执行设备认证指令
+	sAPDU = "9910000010";
+	APDULen = pDlg->Reader.StrToHex(sAPDU, APDU) + 16;
+	RespLen = 256 + 2;
+	::memset(Resp, 0, RespLen);
+	if (!pDlg->Reader.Transmit(APDU, APDULen, Resp, RespLen))
+	{
+		MessageBox(pDlg->Reader.GetError());
+		return FALSE;
+	}
+	if (Resp[0] != 0x90)
+		return FALSE;
+	else
+		return TRUE;
+}
 
 void page2CardInfoDlg::OnBnClickedbtnGet()//Button：Get
 {
@@ -820,8 +876,6 @@ void page2CardInfoDlg::OnBnClickedbtngetsn()
 
 void page2CardInfoDlg::OnBnClickedbtnsetsn()
 {
-	// TODO:  在此添加控件通知处理程序代码
-
 	CSmartToolDlg* pDlg = (CSmartToolDlg*)GetParent()->GetParent();
 
 	edtpcscStatus.SetWindowText(_T(""));
@@ -840,6 +894,15 @@ void page2CardInfoDlg::OnBnClickedbtnsetsn()
 		}
 		CString snStr;
 		edtpcscSn.GetWindowText(snStr);
+
+		//=============================================================
+		CString AUTHKEY = _T("31323334353637383132333435363738");
+		if (FALSE == SKF_DevAuth(AUTHKEY))
+		{
+			MessageBox(_T("糟糕！\n\n设备认证指令执行失败，无法继续执行设置SN操作!"));
+			return;
+		}
+		//=============================================================
 
 		CString sAPDU, sAPDU2;
 		byte APDU[5 + 256];
@@ -1650,6 +1713,15 @@ void page2CardInfoDlg::OnBnClickedbtnsetip()
 		edtpcscIP13.GetWindowText(strIP13);
 		edtpcscIP14.GetWindowText(strIP14);
 		edtpcscIP15.GetWindowText(strPort1);
+
+		//=============================================================
+		CString AUTHKEY = _T("31323334353637383132333435363738");
+		if (FALSE == SKF_DevAuth(AUTHKEY))
+		{
+			MessageBox(_T("糟糕！\n\n设备认证指令执行失败，无法继续执行设置IP操作!"));
+			return;
+		}
+		//=============================================================
 
 		APDU[0] = 0x99;
 		APDU[1] = 0x81;

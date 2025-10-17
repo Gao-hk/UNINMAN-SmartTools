@@ -1,5 +1,3 @@
-#pragma warning(disable:4996)
-
 #include "stdafx.h"
 #include "tchar.h"
 #include "CSmartToolDlg.h"

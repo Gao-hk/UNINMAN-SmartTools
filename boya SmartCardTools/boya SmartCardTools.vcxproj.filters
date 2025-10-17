@@ -237,7 +237,7 @@
     <Image Include="res\证书.ico">
       <Filter>资源文件</Filter>
     </Image>
-    <Image Include="res\UNIONMAN SmartCardTools.ico" />
+    <Image Include="res\boya SmartCardTools.ico" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt">
@@ -245,6 +245,6 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="UNIONMAN SmartCardTools.rc" />
+    <ResourceCompile Include="boya SmartCardTools.rc" />
   </ItemGroup>
 </Project>

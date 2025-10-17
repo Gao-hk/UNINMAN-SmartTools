@@ -80,6 +80,7 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
 	afx_msg boolean checkMF();
+	afx_msg boolean SKF_DevAuth(CString authKey);
 	afx_msg void OnBnClickedbtnGet();
 	afx_msg void OnBnClickedbtnSet();
 

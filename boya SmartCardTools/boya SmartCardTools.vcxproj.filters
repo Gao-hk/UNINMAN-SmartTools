@@ -237,7 +237,7 @@
     <Image Include="res\证书.ico">
       <Filter>资源文件</Filter>
     </Image>
-    <Image Include="res\boya SmartCardTools.ico" />
+    <Image Include="res\boyaSmartCardTools.ico" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt">

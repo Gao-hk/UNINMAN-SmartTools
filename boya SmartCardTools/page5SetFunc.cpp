@@ -142,6 +142,10 @@ void page5SetFuncDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT_IP_30, edtIP[29]);
 	DDX_Control(pDX, IDC_EDIT_IP_31, edtIP[30]);
 	DDX_Control(pDX, IDC_EDIT_IP_32, edtIP[31]);
+
+	DDX_Control(pDX, IDC_EDIT_SET_STARTID, edtSetStartID);	
+
+	DDX_Control(pDX, mccIpList, lstMccIp);
 }
 
 
@@ -438,6 +442,7 @@ void page5SetFuncDlg::ClearMCC_IP_POOL()
 void page5SetFuncDlg::OnBnClickedpage5getmccip()
 {
 	ClearMCC_IP_POOL();
+	lstMccIp.ResetContent(); // 清空列表框
 	//=============================================================
 	CString dispErrStr;
 	CString sAPDU;
@@ -500,18 +505,23 @@ void page5SetFuncDlg::OnBnClickedpage5getmccip()
 		totalDataLen += thisDataLen;
 		if (apdu_Le == 0) {	//本次返回256字节数据，偏移地址+256后继续获取
 			apdu_P1++;
-			goto Lab_Get_MCC_IP_POOL;
+			if (apdu_P1 < 8) {
+				goto Lab_Get_MCC_IP_POOL;
+			}			
 		}
 		//最后不足256字节的数据已获取
 	}
 	//此时数组mcc_ip_pool_Data中的数据长度是totalDataLen
 	dispErrStr.Format(_T("恭喜您！\n\n获取MCC_IP_POOL结束！一共获取到%d个MCC_IP组合。"), totalDataLen/16);
-	if (totalDataLen / 16 > 32) {
-		dispErrStr += _T("\n本界面只提供显示前32个MCC_IP组合");
-	}		
 	MessageBox(dispErrStr);
 
 	//=========================================
+
+	CString cStrSpace = "   ";	
+	CString cStrTitle;
+	cStrTitle.Format(_T("%4s%10s%3s%3s%3s%15s"), " ID ", " Country ", cStrSpace, "MCC", cStrSpace, "   IP Adress   ");
+	lstMccIp.AddString(cStrTitle); 
+	lstMccIp.AddString("--------------------------------------");
 
 	int index = 0;
 	while(index * 16 < totalDataLen){
@@ -522,28 +532,31 @@ void page5SetFuncDlg::OnBnClickedpage5getmccip()
 			*((BYTE*)ucs2String + 2 * i) = mcc_ip_pool_Data[index*16 + 2 * i + 1];
 		}
 		// 使用CString构造函数
-		CString cStrCountry(ucs2String);
+		CString cStr(ucs2String);
+		CString cStrCountry;
+		cStrCountry.Format(_T("%10s"), cStr);
 
 		//2、接下来2字节为MCC，需要将其转换成10进制后再显示
 		unsigned short mcc = mcc_ip_pool_Data[index * 16 + 10] * 256 + mcc_ip_pool_Data[index * 16 + 11];
 		CString cStrMCC;
-		cStrMCC.Format(_T("%d"), mcc);
+		cStrMCC.Format(_T("%3d"), mcc);
 
 		//3、最后4字节为IP地址，需要将其转换成10进制后再显示
 		byte ipDB[4];
 		::memcpy(ipDB, &mcc_ip_pool_Data[index * 16 + 12], 4);
 		CString cStrIP;
-		cStrIP.Format(_T("%d.%d.%d.%d"), ipDB[0], ipDB[1], ipDB[2], ipDB[3]);
+		cStrIP.Format(_T("%3d.%3d.%3d.%3d"), ipDB[0], ipDB[1], ipDB[2], ipDB[3]);
 
 		if (index < 32) {	//工具界面只提供显示前32个MCC_IP组合
 			edtCountry[index].SetWindowText(cStrCountry);
 			edtMCC[index].SetWindowText(cStrMCC);
 			edtIP[index].SetWindowText(cStrIP);
 		}
-
+		CString cStrID;
+		cStrID.Format(_T("%3d "), 1 + index);
+		lstMccIp.AddString(cStrID + cStrCountry + cStrSpace + cStrMCC + cStrSpace + cStrIP);
 		index++;
 	}
-		
 }
 
 CString gDispStr;
@@ -726,6 +739,35 @@ void page5SetFuncDlg::OnBnClickedpage5setmccip()
 
 	//IP地址池待写入数据总长度=mccIPDataLen，数据在数组mcc_ip_pool_Data中
 
+	CString startIDStr;
+	//----获取输入的值----
+	edtSetStartID.GetWindowText(startIDStr);
+	startIDStr.Remove(' ');
+	startIDStr.Remove('	');
+	if (0 == strlen(startIDStr))
+	{
+		dispStr.Format(_T("设置起始ID未填写！退出。"));
+		MessageBox(dispStr);
+		return;
+	}
+	//检查内容
+	std::string stdStr(startIDStr); // 将CString转换为std::string
+	if (std::all_of(stdStr.begin(), stdStr.end(), ::isdigit)) {
+		// 字符串全部由数字组成
+	}
+	else {
+		// 字符串包含非数字字符
+		dispStr.Format(_T("设置起始ID中包含非数字字符！退出。"));
+		MessageBox(dispStr);
+		return;
+	}
+	int startID = atoi(startIDStr);
+	if (startID == 0) {
+		dispStr.Format(_T("设置起始ID的取值范围：1~128！退出。"));
+		MessageBox(dispStr);
+		return;
+	}
+
 	//=============================================================
 
 	CString dispErrStr;
@@ -734,7 +776,7 @@ void page5SetFuncDlg::OnBnClickedpage5setmccip()
 	byte Resp[1000];
 	byte apdu_P2 = 0x00;
 	byte thiswriteDataLen;
-	unsigned short offset = 0;
+	unsigned short offset = (startID - 1) * 16;
 	DWORD APDULen = 0;
 	DWORD RespLen = 1000;
 
@@ -754,7 +796,7 @@ void page5SetFuncDlg::OnBnClickedpage5setmccip()
 		APDU[4] = 2 + thiswriteDataLen;
 		APDU[5] = (offset >> 8) & 0xFF;
 		APDU[6] = offset & 0xFF;
-		::memcpy(&APDU[5 + 2], mcc_ip_pool_Data + offset, thiswriteDataLen);
+		::memcpy(&APDU[5 + 2], mcc_ip_pool_Data + (offset - (startID - 1) * 16), thiswriteDataLen);
 		APDULen = 5 + APDU[4];
 		RespLen = 256 + 2;
 		::memset(Resp, 0, RespLen);
@@ -1008,80 +1050,74 @@ void page5SetFuncDlg::OnBnClickedpage5fillclearoriginalmccip()
 {
 	
 	if (TRUE == gFillOrClearOriginalFlag) {
-		int index = 0;
-		while (index < 32) {
-			edtCountry[index].SetWindowText("");
-			edtMCC[index].SetWindowText("");
-			edtIP[index].SetWindowText("");
-			index++;
-		}
+		ClearMCC_IP_POOL();
 		gFillOrClearOriginalFlag = FALSE;
 	}
 	else {
 		edtCountry[0].SetWindowText("中国");
 		edtMCC[0].SetWindowText("460");
-		edtIP[0].SetWindowText("180.101.22.46");
+		edtIP[0].SetWindowText("180.101. 22. 46");
 
 		edtCountry[1].SetWindowText("德国1");
 		edtMCC[1].SetWindowText("262");
-		edtIP[1].SetWindowText("8.209.96.113");
+		edtIP[1].SetWindowText("8.209. 96.113");
 		edtCountry[2].SetWindowText("德国2");
 		edtMCC[2].SetWindowText("262");
-		edtIP[2].SetWindowText("8.211.17.138");
+		edtIP[2].SetWindowText("8.211. 17.138");
 
 		edtCountry[3].SetWindowText("英国1");
 		edtMCC[3].SetWindowText("234");
-		edtIP[3].SetWindowText("8.208.84.19");
+		edtIP[3].SetWindowText("8.208. 84. 19");
 		edtCountry[4].SetWindowText("英国2");
 		edtMCC[4].SetWindowText("234");
 		edtIP[4].SetWindowText("8.208.118.108");
 
 		edtCountry[5].SetWindowText("美国1");
 		edtMCC[5].SetWindowText("310");
-		edtIP[5].SetWindowText("47.251.73.13");
+		edtIP[5].SetWindowText("47.251. 73. 13");
 		edtCountry[6].SetWindowText("美国2");
 		edtMCC[6].SetWindowText("310");
 		edtIP[6].SetWindowText("47.251.170.206");
 		edtCountry[7].SetWindowText("美国3");
 		edtMCC[7].SetWindowText("310");
-		edtIP[7].SetWindowText("47.85.35.25");
+		edtIP[7].SetWindowText("47. 85. 35. 25");
 		edtCountry[8].SetWindowText("美国4");
 		edtMCC[8].SetWindowText("310");
 		edtIP[8].SetWindowText("47.253.248.123");
 
 		edtCountry[9].SetWindowText("加拿大1");
 		edtMCC[9].SetWindowText("302");
-		edtIP[9].SetWindowText("47.77.36.77");
+		edtIP[9].SetWindowText("47. 77. 36. 77");
 		edtCountry[10].SetWindowText("加拿大2");
 		edtMCC[10].SetWindowText("302");
-		edtIP[10].SetWindowText("47.77.35.201");
+		edtIP[10].SetWindowText("47. 77. 35.201");
 		edtCountry[11].SetWindowText("加拿大3");
 		edtMCC[11].SetWindowText("302");
-		edtIP[11].SetWindowText("47.77.77.166");
+		edtIP[11].SetWindowText("47. 77. 77.166");
 		edtCountry[12].SetWindowText("加拿大4");
 		edtMCC[12].SetWindowText("302");
-		edtIP[12].SetWindowText("47.77.72.128");
+		edtIP[12].SetWindowText("47. 77. 72.128");
 
 		edtCountry[13].SetWindowText("墨西哥1");
 		edtMCC[13].SetWindowText("334");
-		edtIP[13].SetWindowText("47.87.14.75");
+		edtIP[13].SetWindowText("47. 87. 14. 75");
 		edtCountry[14].SetWindowText("墨西哥2");
 		edtMCC[14].SetWindowText("334");
-		edtIP[14].SetWindowText("47.87.13.17");
+		edtIP[14].SetWindowText("47. 87. 13. 17");
 
 		edtCountry[15].SetWindowText("中国香港1");
 		edtMCC[15].SetWindowText("454");
-		edtIP[15].SetWindowText("8.223.54.82");
+		edtIP[15].SetWindowText("8.223. 54. 82");
 		edtCountry[16].SetWindowText("中国香港2");
 		edtMCC[16].SetWindowText("454");
-		edtIP[16].SetWindowText("8.223.43.98");
+		edtIP[16].SetWindowText("8.223. 43. 98");
 
 		edtCountry[17].SetWindowText("日本1");
 		edtMCC[17].SetWindowText("440");
-		edtIP[17].SetWindowText("8.222.91.149");
+		edtIP[17].SetWindowText("8.222. 91.149");
 		edtCountry[18].SetWindowText("日本2");
 		edtMCC[18].SetWindowText("440");
-		edtIP[18].SetWindowText("8.222.76.222");
+		edtIP[18].SetWindowText("8.222. 76.222");
 
 		edtCountry[19].SetWindowText("新加坡1");
 		edtMCC[19].SetWindowText("525");
@@ -1092,31 +1128,31 @@ void page5SetFuncDlg::OnBnClickedpage5fillclearoriginalmccip()
 
 		edtCountry[21].SetWindowText("马来西亚1");
 		edtMCC[21].SetWindowText("502");
-		edtIP[21].SetWindowText("47.254.247.12");
+		edtIP[21].SetWindowText("47.254.247. 12");
 		edtCountry[22].SetWindowText("马来西亚2");
 		edtMCC[22].SetWindowText("502");
-		edtIP[22].SetWindowText("47.250.178.77");
+		edtIP[22].SetWindowText("47.250.178. 77");
 
 		edtCountry[23].SetWindowText("印尼1");
 		edtMCC[23].SetWindowText("510");
-		edtIP[23].SetWindowText("8.215.41.77");
+		edtIP[23].SetWindowText("8.215. 41. 77");
 		edtCountry[24].SetWindowText("印尼2");
 		edtMCC[24].SetWindowText("510");
-		edtIP[24].SetWindowText("8.215.52.62");
+		edtIP[24].SetWindowText("8.215. 52. 62");
 
 		edtCountry[25].SetWindowText("菲律宾1");
 		edtMCC[25].SetWindowText("515");
-		edtIP[25].SetWindowText("8.212.162.44");
+		edtIP[25].SetWindowText("8.212.162. 44");
 		edtCountry[26].SetWindowText("菲律宾2");
 		edtMCC[26].SetWindowText("515");
 		edtIP[26].SetWindowText("8.220.184.214");
 
 		edtCountry[27].SetWindowText("韩国1");
 		edtMCC[27].SetWindowText("450");
-		edtIP[27].SetWindowText("8.220.193.7");
+		edtIP[27].SetWindowText("8.220.193.  7");
 		edtCountry[28].SetWindowText("韩国2");
 		edtMCC[28].SetWindowText("450");
-		edtIP[28].SetWindowText("8.220.217.31");
+		edtIP[28].SetWindowText("8.220.217. 31");
 
 		edtCountry[29].SetWindowText("泰国1");
 		edtMCC[29].SetWindowText("520");
@@ -1186,12 +1222,8 @@ void page5SetFuncDlg::OnBnClickedpage5clearmccip()
 
 	MessageBox(_T("恭喜您！\n\n清空MCC列表成功！退出"));
 
-	int index = 0;
-	while (index < 32) {
-		edtCountry[index].SetWindowText("");
-		edtMCC[index].SetWindowText("");
-		edtIP[index].SetWindowText("");
-		index++;
-	}
+	ClearMCC_IP_POOL();
+	lstMccIp.ResetContent(); // 清空列表框
+
 	gFillOrClearOriginalFlag = FALSE;
 }

@@ -21,6 +21,9 @@ public:
 	CEdit edtCountry[32];
 	CEdit edtMCC[32];
 	CEdit edtIP[32];
+	CEdit edtSetStartID;
+
+	CListBox lstMccIp;
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持

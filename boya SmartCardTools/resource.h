@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ 生成的包含文件。
-// 供 UNIONMAN SmartCardTools.rc 使用
+// 供 boya SmartCardTools.rc 使用
 //
 #define IDOK                            1
 #define IDM_ABOUTBOX                    0x0010
@@ -248,8 +248,9 @@
 #define IDC_EDIT_IP_31                  1211
 #define IDC_EDIT_IP_32                  1212
 #define page5ClearMCCIP                 1213
-#define page5FillClearMCCIP             1214
 #define page5FillClearOriginalMCCIP     1214
+#define IDC_EDIT_SET_STARTID            1215
+#define mccIpList                       1216
 #define IDC_EDIT_MCC_1                  1229
 #define IDC_EDIT_MCC_2                  1230
 #define IDC_EDIT_MCC_3                  1231
@@ -323,7 +324,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        181
 #define _APS_NEXT_COMMAND_VALUE         32835
-#define _APS_NEXT_CONTROL_VALUE         1145
+#define _APS_NEXT_CONTROL_VALUE         1216
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

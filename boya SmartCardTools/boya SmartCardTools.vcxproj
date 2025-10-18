@@ -153,8 +153,8 @@
     <Image Include="res\bitmap2.bmp" />
     <Image Include="res\bitmap3.bmp" />
     <Image Include="res\.ico" />
+    <Image Include="res\boyaSmartCardTools.ico" />
     <Image Include="res\Key1.ico" />
-    <Image Include="res\boya SmartCardTools.ico" />
     <Image Include="res\txt.ico" />
     <Image Include="res\产品文件.bmp" />
     <Image Include="res\产品文件.ico" />

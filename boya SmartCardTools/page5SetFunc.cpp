@@ -255,6 +255,7 @@ void page5SetFuncDlg::OnBnClickedpage5getswitchstatus()
 	((CButton*)GetDlgItem(IDC_CHECK_SIM_LOG_SWITCH))->SetCheck(0);
 	((CButton*)GetDlgItem(IDC_CHECK_MCC_IP_POOL_SWITCH))->SetCheck(0);
 	((CButton*)GetDlgItem(IDC_CHECK_REPORTING_LOCATION_SWITCH))->SetCheck(0);
+	((CButton*)GetDlgItem(IDC_CHECK_REPORT_CALL_ADRESS_SWITCH))->SetCheck(0);
 
 	//=============================================================
 
@@ -320,6 +321,7 @@ void page5SetFuncDlg::OnBnClickedpage5getswitchstatus()
 	((CButton*)GetDlgItem(IDC_CHECK_SIM_LOG_SWITCH))->SetCheck(Resp[23]);
 	((CButton*)GetDlgItem(IDC_CHECK_MCC_IP_POOL_SWITCH))->SetCheck(Resp[26]);
 	((CButton*)GetDlgItem(IDC_CHECK_REPORTING_LOCATION_SWITCH))->SetCheck(Resp[29]);
+	((CButton*)GetDlgItem(IDC_CHECK_REPORT_CALL_ADRESS_SWITCH))->SetCheck(Resp[32]);
 }
 
 
@@ -333,7 +335,7 @@ void page5SetFuncDlg::OnBnClickedpage5setswitchstatus()
 	}
 	//=============================================================
 
-	BYTE switchStatusDB[30] = { 0x01,0x01,0,0x02,0x01,0,0x03,0x01,0,0x04,0x01,0,0x05,0x01,0,0x06,0x01,0,0x07,0x01,0,0x08,0x01,0,0x09,0x01,0,0x0A,0x01,0 };
+	BYTE switchStatusDB[33] = { 0x01,0x01,0,0x02,0x01,0,0x03,0x01,0,0x04,0x01,0,0x05,0x01,0,0x06,0x01,0,0x07,0x01,0,0x08,0x01,0,0x09,0x01,0,0x0A,0x01,0,0x0B,0x01,0 };
 	if (((CButton*)GetDlgItem(IDC_CHECK_S2S_SWITCH))->GetCheck() == 1)
 		switchStatusDB[2] = 1; 
 	if (((CButton*)GetDlgItem(IDC_CHECK_S2S_SM4_SWITCH))->GetCheck() == 1)
@@ -354,6 +356,8 @@ void page5SetFuncDlg::OnBnClickedpage5setswitchstatus()
 		switchStatusDB[26] = 1;
 	if (((CButton*)GetDlgItem(IDC_CHECK_REPORTING_LOCATION_SWITCH))->GetCheck() == 1)
 		switchStatusDB[29] = 1;
+	if (((CButton*)GetDlgItem(IDC_CHECK_REPORT_CALL_ADRESS_SWITCH))->GetCheck() == 1)
+		switchStatusDB[30] = 1;
 
 	//=============================================================
 
@@ -368,8 +372,9 @@ void page5SetFuncDlg::OnBnClickedpage5setswitchstatus()
 	//设置可选功能状态APDU
 	sAPDU = "998113001E";
 	APDULen = pDlg->Reader.StrToHex(sAPDU, APDU);
-	::memcpy(APDU+5, switchStatusDB, 30);
-	APDULen += 30;
+	APDU[4] = sizeof(switchStatusDB);
+	::memcpy(APDU+5, switchStatusDB, APDU[4]);
+	APDULen += APDU[4];
 	RespLen = 256 + 2;
 	::memset(Resp, 0, RespLen);
 	if (!pDlg->Reader.Transmit(APDU, APDULen, Resp, RespLen))

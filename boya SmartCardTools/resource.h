@@ -251,7 +251,10 @@
 #define page5FillClearOriginalMCCIP     1214
 #define IDC_EDIT_SET_STARTID            1215
 #define mccIpList                       1216
+<<<<<<< HEAD
 #define IDC_CHECK_REPORT_CALL_ADRESS_SWITCH 1217
+=======
+>>>>>>> 1f48007bc9db43b927107769b1a9b409444f5b78
 #define IDC_EDIT_MCC_1                  1229
 #define IDC_EDIT_MCC_2                  1230
 #define IDC_EDIT_MCC_3                  1231

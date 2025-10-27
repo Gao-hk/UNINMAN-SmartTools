@@ -357,7 +357,7 @@ void page5SetFuncDlg::OnBnClickedpage5setswitchstatus()
 	if (((CButton*)GetDlgItem(IDC_CHECK_REPORTING_LOCATION_SWITCH))->GetCheck() == 1)
 		switchStatusDB[29] = 1;
 	if (((CButton*)GetDlgItem(IDC_CHECK_REPORT_CALL_ADRESS_SWITCH))->GetCheck() == 1)
-		switchStatusDB[30] = 1;
+		switchStatusDB[32] = 1;
 
 	//=============================================================
 

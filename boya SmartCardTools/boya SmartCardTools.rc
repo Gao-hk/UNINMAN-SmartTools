@@ -31,7 +31,7 @@ LANGUAGE LANG_CHINESE, SUBLANG_NEUTRAL
 IDD_SMARTTOOL_DIALOG DIALOGEX 0, 0, 560, 446
 STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
-CAPTION "boya SmartCardTools V1.0.2.1"
+CAPTION "boya SmartCardTools V1.0.2.2"
 FONT 10, "宋体", 400, 0, 0x0
 BEGIN
     PUSHBUTTON      "复位",btnReset,504,20,50,17,NOT WS_VISIBLE | WS_DISABLED
@@ -47,7 +47,7 @@ CAPTION "关于 boya SmartCardTools"
 FONT 11, "Times New Roman", 400, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "确定",IDOK,78,54,35,14,0,WS_EX_DLGMODALFRAME
-    LTEXT           "boya SmartCardTools V1.0.2.1",IDC_STATIC,43,23,142,10
+    LTEXT           "boya SmartCardTools V1.0.2.2",IDC_STATIC,43,23,142,10
     ICON            IDR_MAINFRAME,IDC_STATIC,16,18,20,20,SS_REALSIZEIMAGE
 END
 
@@ -638,7 +638,7 @@ IDI_ICON_KEYPAIR2       ICON                    "res\\密钥对2.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,2,1
+ FILEVERSION 1,0,2,2
  PRODUCTVERSION 1,0,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -655,7 +655,7 @@ BEGIN
         BLOCK "080404b0"
         BEGIN
             VALUE "FileDescription", "boya SmartCardTools"
-            VALUE "FileVersion", "1.0.2.1"
+            VALUE "FileVersion", "1.0.2.2"
             VALUE "InternalName", "boya SmartCardTools.exe"
             VALUE "LegalCopyright", "高红奎"
             VALUE "OriginalFilename", "boya SmartCardTools.exe"
